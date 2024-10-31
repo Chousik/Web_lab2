@@ -49,7 +49,6 @@ public class AreaCheckServlet extends HttpServlet {
 
             resp.setContentType("application/json");
             resp.getWriter().write(ans);
-            resp.getWriter().flush();
         }catch (NumberFormatException e){
             ControllerServlet.sendError(resp, e.toString(), HttpServletResponse.SC_BAD_REQUEST);
         }

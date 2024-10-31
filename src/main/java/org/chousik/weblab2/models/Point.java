@@ -12,6 +12,6 @@ public final class Point {
     private final double y;
     private final double r;
     private boolean inFlag;
-    private String time;
+    private String time; //В точке время строка.
     private long executionTime;
 }
