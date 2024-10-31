@@ -1,0 +1,68 @@
+<servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.example.MyServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/myServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>MyJSPPage</servlet-name>
+    <jsp-file>/WEB-INF/pages/myPage.jsp</jsp-file>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>MyJSPPage</servlet-name>
+    <url-pattern>/myPage</url-pattern>
+</servlet-mapping>
+
+import javax.servlet.annotation.WebFilter;
+
+@WebFilter("/*") // Применение фильтра ко всем запросам
+public class MyFilter implements Filter {
+    // Реализация методов init(), doFilter(), и destroy() как показано ранее
+}
+
+<filter>
+    <filter-name>MyFilter</filter-name>
+    <filter-class>com.example.MyFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>MyFilter</filter-name>
+    <url-pattern>/myapp/*</url-pattern> <!-- Укажите шаблон URL для применения фильтра -->
+</filter-mapping>
+
+@WebFilter("/area-servlet")
+public class AccessFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Инициализация фильтра (если требуется)
+    }
+
+    @Override
+    public void doFilter(jakarta.servlet.ServletRequest request, jakarta.servlet.ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+
+        // Проверяем наличие параметра "source" со значением "controller"
+        String source = req.getParameter("source");
+
+        if ("controller".equals(source)) {
+            // Разрешаем запрос, если параметр "source" равен "controller"
+            chain.doFilter(request, response);
+        } else {
+            // Отказ в доступе и возврат ошибки
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Access denied");
+        }
+    }
+
+    @Override
+    public void destroy() {
+        // Завершение работы фильтра (если требуется)
+    }
+}
