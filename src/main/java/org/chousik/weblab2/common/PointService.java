@@ -6,13 +6,23 @@ public class PointService implements ServiceInterface<Point> {
 
     @Override
     public boolean valid(Point point) {
-        return 1<=point.getR() && point.getR()<=3 && Math.abs(point.getY())<=6 && Math.abs(point.getX())<=6;
+        double x = point.getX();
+        double y = point.getY();
+        double r = point.getR();
+
+        return 1 <= r && r <= 3 && Math.abs(y) <= 6 && Math.abs(x) <= 6;
     }
+
     @Override
     public void check(Point point) {
-        boolean inFlag =  (point.getX() >= 0 && point.getY() >= 0 && point.getY() <= point.getR() /2  && point.getX() <= point.getR()) || // it's a rectangle
-                (point.getX() <= 0 && point.getY() >= 0 && Math.sqrt(point.getX() * point.getX() + point.getY() * point.getY()) <= point.getR()) || // it's a circle
-                (point.getX() > 0 && point.getY() < 0 && (point.getX()/2 - point.getR()/2)<= point.getY());
+        double x = point.getX();
+        double y = point.getY();
+        double r = point.getR();
+
+        boolean inFlag = (x >= 0 && y >= 0 && y <= r / 2 && x <= r) ||
+                (x <= 0 && y >= 0 && Math.sqrt(x * x + y * y) <= r) ||
+                (x > 0 && y < 0 && (x / 2 - r / 2) <= y);
+
         point.setInFlag(inFlag);
     }
 }
