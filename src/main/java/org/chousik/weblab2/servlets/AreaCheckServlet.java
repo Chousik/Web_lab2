@@ -30,27 +30,26 @@ public class AreaCheckServlet extends HttpServlet {
             Point point = new Point(Double.parseDouble((req.getParameter("x"))),
                     Double.parseDouble(req.getParameter("y")),
                     Double.parseDouble(req.getParameter("r")));
-            if (pointService.valid(point)){
-                PointDao bean = (PointDao) req.getSession().getAttribute("bean");
-                if (bean == null){
-                    bean = new PointDao();
-                }
-                pointService.check(point);
-                point.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-                point.setExecutionTime(System.nanoTime() - startTime);
-                bean.addPoint(point);
-                req.getSession().setAttribute("bean", bean);
-
-                Gson gson = new Gson();
-                var ans = gson.toJson(point);
-
-                resp.setContentType("application/json");
-                resp.getWriter().write(ans);
-                resp.getWriter().flush();
-            }
-            else {
+            if (!pointService.valid(point)){
                 ControllerServlet.sendError(resp, "Invalid point", HttpServletResponse.SC_BAD_REQUEST);
+                return;
             }
+            PointDao bean = (PointDao) req.getSession().getAttribute("bean");
+            if (bean == null){
+                bean = new PointDao();
+            }
+            pointService.check(point);
+            point.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            point.setExecutionTime(System.nanoTime() - startTime);
+            bean.addPoint(point);
+            req.getSession().setAttribute("bean", bean);
+
+            Gson gson = new Gson();
+            var ans = gson.toJson(point);
+
+            resp.setContentType("application/json");
+            resp.getWriter().write(ans);
+            resp.getWriter().flush();
         }catch (NumberFormatException e){
             ControllerServlet.sendError(resp, e.toString(), HttpServletResponse.SC_BAD_REQUEST);
         }

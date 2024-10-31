@@ -24,12 +24,7 @@ public class ControllerServlet extends HttpServlet {
         String x = req.getParameter("x");
         String y = req.getParameter("y");
         String radius = req.getParameter("r");
-        RequestDispatcher dispatcher;
-        if (x != null && y != null && radius != null) {
-            dispatcher = req.getRequestDispatcher("/area-servlet");
-        } else {
-            dispatcher = req.getRequestDispatcher("/WEB-INF/index.jsp");
-        }
+        RequestDispatcher dispatcher = req.getRequestDispatcher((x != null && y != null && radius != null) ? "/area-servlet" : "/WEB-INF/index.jsp");
         dispatcher.forward(req, resp);
     }
     public static void sendError(HttpServletResponse resp, String message, int httpServletResponse) throws IOException {
