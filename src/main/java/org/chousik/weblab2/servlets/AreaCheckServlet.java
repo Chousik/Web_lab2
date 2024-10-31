@@ -13,7 +13,7 @@ import org.chousik.weblab2.models.Point;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-@WebServlet(name = "areaCheckServlet", value = "/area-servlet")
+@WebServlet(value = "/area-servlet")
 public class AreaCheckServlet extends HttpServlet {
     private ServiceInterface<Point> pointService;
 

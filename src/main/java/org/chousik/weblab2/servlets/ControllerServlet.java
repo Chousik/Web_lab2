@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "controllerServlet", value = "/main")
+@WebServlet(value = "/main")
 public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class ControllerServlet extends HttpServlet {
         if (x != null && y != null && radius != null) {
             dispatcher = req.getRequestDispatcher("/area-servlet");
         } else {
-            dispatcher = req.getRequestDispatcher("two.jsp");
+            dispatcher = req.getRequestDispatcher("/WEB-INF/index.jsp");
         }
         dispatcher.forward(req, resp);
     }

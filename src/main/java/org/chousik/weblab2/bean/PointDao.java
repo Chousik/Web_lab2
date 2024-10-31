@@ -2,12 +2,14 @@ package org.chousik.weblab2.bean;
 
 import jakarta.ejb.Stateful;
 import jakarta.enterprise.context.SessionScoped;
+import lombok.Getter;
 import org.chousik.weblab2.models.Point;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Stateful
 @SessionScoped
 public class PointDao implements Serializable {
@@ -17,7 +19,4 @@ public class PointDao implements Serializable {
         points.add(point);
     }
 
-    public List<Point> getPoints() {
-        return points;
-    }
 }

@@ -6,13 +6,13 @@ public class PointService implements ServiceInterface<Point> {
 
     @Override
     public boolean valid(Point point) {
-        return 1<=point.r() && point.r()<=3 && Math.abs(point.y())<=6 && Math.abs(point.x())<=6;
+        return 1<=point.getR() && point.getR()<=3 && Math.abs(point.getY())<=6 && Math.abs(point.getX())<=6;
     }
     @Override
     public void check(Point point) {
-        boolean inFlag =  (point.x() >= 0 && point.y() >= 0 && point.y() <= point.r() /2  && point.x() <= point.r()) || // it's a rectangle
-                (point.x() <= 0 && point.y() >= 0 && Math.sqrt(point.x() * point.x() + point.y() * point.y()) <= point.r()) || // it's a circle
-                (point.x() > 0 && point.y() < 0 && (point.x()/2 - point.r()/2)<= point.y());
+        boolean inFlag =  (point.getX() >= 0 && point.getY() >= 0 && point.getY() <= point.getR() /2  && point.getX() <= point.getR()) || // it's a rectangle
+                (point.getX() <= 0 && point.getY() >= 0 && Math.sqrt(point.getX() * point.getX() + point.getY() * point.getY()) <= point.getR()) || // it's a circle
+                (point.getX() > 0 && point.getY() < 0 && (point.getX()/2 - point.getR()/2)<= point.getY());
         point.setInFlag(inFlag);
     }
 }
