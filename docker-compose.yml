@@ -3,4 +3,4 @@ services:
   wildfly:
     build: .
     ports:
-      - "1488:8080"
+      - "100:8080"
